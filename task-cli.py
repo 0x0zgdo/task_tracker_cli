@@ -3,7 +3,7 @@ import json
 import os
 
 TASKS_FILE = "tasks.json"
-
+# function definitions
 def load_tasks(): 
     if not os.path.exists(TASKS_FILE):
         return []
@@ -47,7 +47,6 @@ if command == "add":
         tasks.append(task)
         save_task(tasks)
         print("Task added successfully")
-
 elif command == "list":
     tasks = load_tasks()
 
@@ -56,3 +55,14 @@ elif command == "list":
     else: 
         for task in tasks:
             print(f'{task["id"]}. [{task["status"]}] {task["description"]}')
+elif command == "delete":
+    if len(sys.argv) < 3:
+        print("Error: missing task ID")
+    else:
+        try:
+            task_id = int(sys.argv[2])
+            print("Task ID:", task_id)
+        except ValueError:
+            print("Error: task ID must be a number")
+else:
+    print("Unknown command:", command)
