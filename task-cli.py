@@ -72,9 +72,31 @@ elif command == "delete":
             else:
                  save_task(new_task)
                  print("Task deleted successfully")
-                    
-
         except ValueError:
             print("Error: task ID must be a number")
+elif command == "update":
+    if len(sys.argv) < 4:
+        print("Error: missing task ID or description")
+    else:
+        try:
+            task_id = int(sys.argv[2])
+            new_description = sys.argv[3]
+
+            tasks = load_tasks()
+            found = False
+
+            for task in tasks:
+                if task["id"] == task_id:
+                    task["description"] = new_description
+                    found = True
+            
+            if found:
+                save_task(tasks)
+                print("Task updated successfully")
+            else:
+                print("Error: task not found")
+        except ValueError:
+            print("Error: task ID must be a number")
+
 else:
     print("Unknown command:", command)
