@@ -48,3 +48,11 @@ if command == "add":
         save_task(tasks)
         print("Task added successfully")
 
+elif command == "list":
+    tasks = load_tasks()
+
+    if len(tasks) == 0:
+        print("No tasks found")
+    else: 
+        for task in tasks:
+            print(f'{task["id"]}. [{task["status"]}] {task["description"]}')
