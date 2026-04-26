@@ -61,7 +61,19 @@ elif command == "delete":
     else:
         try:
             task_id = int(sys.argv[2])
-            print("Task ID:", task_id)
+            tasks = load_tasks()
+            new_task = []
+            for task in tasks:
+                if task["id"] != task_id:
+                    new_task.append(task)
+            
+            if len(new_task) == len(tasks):
+                print("Error: task not found")
+            else:
+                 save_task(new_task)
+                 print("Task deleted successfully")
+                    
+
         except ValueError:
             print("Error: task ID must be a number")
 else:
